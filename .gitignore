@@ -1,0 +1,11 @@
+*.out
+*.oc
+*.o
+*.so
+
+
+*.pyc
+*~
+__pycache__/
+venv
+.idea

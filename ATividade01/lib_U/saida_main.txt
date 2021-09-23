@@ -1,0 +1,16 @@
+Lista Original
+-> 1 -> 5 -> 10 -> 11 -> 15 -> 19 
+Encontra um elemento [10] [indice]
+2
+Lista apos a exclusao de um elemento [1]
+-> 5 -> 10 -> 11 -> 15 -> 19 
+
+Busca e Ordenacao
+Vetor Original
+9 5 11 0 7 55 2 8 13 3 
+Vetor ordenado pelo quicksort:
+0 2 3 5 7 8 9 11 13 55 
+Busca binaria iterativa [elemento 13]
+8
+Busca binaria recursiva [elemento 9]
+6
