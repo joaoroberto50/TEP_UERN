@@ -23,7 +23,7 @@ class Dijkstra:
         self.grafo = grafo.nos
         self.ini = ini
         self.fim = fim
-        self.open = []
+        self.close = {}
         self.v = {'u':'', 'v':'', 'c':0}
         self.cam = []
         self.c = {self.ini:{self.ini: 0, 'att':self.ini, 'ant':''}}
@@ -32,27 +32,31 @@ class Dijkstra:
                 self.c.update({i: {i: self._MAX, 'att':i, 'ant':''}})
 
 
-    def _menor(self, vert, ares):
+    def _menor(self, vert, ares, v):
         min = self._MAX
+        print(vert)
         for i in vert:
             if (i[1] < min and i[0] != ares):
                 min = i[1]
                 aux = i
-            else:
-                self.open.append(i[0])
+                self.close.update({v:i})
+        print(i)
         return aux
 
 
-    def run(self, aresta='a', val=0):
+    def run(self, aresta='a', val=0, u=''):
+        print(aresta)
         if(aresta != self.fim):
-            print(aresta)
-            men = self._menor(self.grafo[aresta], aresta)
+            men = self._menor(self.grafo[aresta], u, aresta)
             men[1] += val
             if (self.c[men[0]][men[0]] > men[1]):
                 self.c[men[0]]['ant'] = aresta
                 self.c[men[0]][men[0]] = men[1]
                 self.cam.append(aresta)
-                self.run(self.c[men[0]]['att'], self.c[men[0]][men[0]])
+                self.run(self.c[men[0]]['att'], self.c[men[0]][men[0]], aresta)
+        if(aresta == self.fim):
+            self.cam.append(aresta)
+        
 
 
 
