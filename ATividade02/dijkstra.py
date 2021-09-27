@@ -23,7 +23,7 @@ class Dijkstra:
         self.grafo = grafo.nos
         self.ini = ini
         self.fim = fim
-        self.close = {}
+        self.open = self.grafo
         self.v = {'u':'', 'v':'', 'c':0}
         self.cam = []
         self.c = {self.ini:{self.ini: 0, 'att':self.ini, 'ant':''}}
@@ -39,8 +39,7 @@ class Dijkstra:
             if (i[1] < min and i[0] != ares):
                 min = i[1]
                 aux = i
-                self.close.update({v:i})
-        print(i)
+        self.open[v].remove(aux)
         return aux
 
 
@@ -56,6 +55,7 @@ class Dijkstra:
                 self.run(self.c[men[0]]['att'], self.c[men[0]][men[0]], aresta)
         if(aresta == self.fim):
             self.cam.append(aresta)
+        self.run([*self.open][0], )
         
 
 
@@ -77,3 +77,4 @@ graf.print_grafo()
 dsj = Dijkstra(graf, 'a', 'f')
 dsj.run()
 print(dsj.cam)
+print(dsj.open)
