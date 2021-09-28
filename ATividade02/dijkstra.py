@@ -23,8 +23,10 @@ class Dijkstra:
         self.grafo = grafo.nos
         self.ini = ini
         self.fim = fim
-        self.open = self.grafo
-        self.v = {'u':'', 'v':'', 'c':0}
+        self.open = self.grafo.copy()
+        self.open.pop(self.fim)
+        for i in self.open:
+            self.open[i] = {'are':self.open[i], 'val':0, 'u':''}
         self.cam = []
         self.c = {self.ini:{self.ini: 0, 'att':self.ini, 'ant':''}}
         for i in grafo.nos:
@@ -34,12 +36,11 @@ class Dijkstra:
 
     def _menor(self, vert, ares, v):
         min = self._MAX
-        print(vert)
         for i in vert:
             if (i[1] < min and i[0] != ares):
                 min = i[1]
                 aux = i
-        self.open[v].remove(aux)
+        self.open[v]['are'].remove(aux)
         return aux
 
 
@@ -52,10 +53,14 @@ class Dijkstra:
                 self.c[men[0]]['ant'] = aresta
                 self.c[men[0]][men[0]] = men[1]
                 self.cam.append(aresta)
+                self.open[aresta]['val'] = val
+                self.open[aresta]['u'] = u
                 self.run(self.c[men[0]]['att'], self.c[men[0]][men[0]], aresta)
         if(aresta == self.fim):
             self.cam.append(aresta)
-        self.run([*self.open][0], )
+        if not (self.open[[*self.open][0]]['are']):
+            self.open.pop([*self.open][0])
+        self.run([*self.open][0], val=self.open[[*self.open][0]]['val'], u=self.open[[*self.open][0]]['u'])
         
 
 
