@@ -58,12 +58,11 @@ class Dijkstra:
                 self.run(self.c[men[0]]['att'], self.c[men[0]][men[0]], aresta)
         if(aresta == self.fim):
             self.cam.append(aresta)
-        if not (self.open[[*self.open][0]]['are']):
-            self.open.pop([*self.open][0])
-        self.run([*self.open][0], val=self.open[[*self.open][0]]['val'], u=self.open[[*self.open][0]]['u'])
+        return self.cam
         
 
-
+    def teste(self):
+        self.run(self.ini, self.open[], )
 
 
 
