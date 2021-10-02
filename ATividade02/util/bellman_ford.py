@@ -1,4 +1,3 @@
-from grafo import Grafo
 
 class BellmanFord(object):
 
@@ -41,19 +40,3 @@ class BellmanFord(object):
         while(ant != ''):
             self.camm.insert(0, ant)
             ant = self.arestas[ant]['u']
-
-
-graf = Grafo()
-graf.add_node('s', [['t',6], ['y',7]])
-graf.add_node('t', [['x',5], ['z',-4], ['y',8]])
-graf.add_node('y', [['z',2], ['x',-3]])
-graf.add_node('x', [['t',-2]])
-graf.add_node('z', [['s',2], ['x',7]])
-# graf.add_node('f', [['d',1], ['e',9]])
-
-bff = BellmanFord(graf, 's')
-bff.run()
-print(bff.arestas)
-print(bff.ciclo_negativo())
-bff.caminho('z')
-print(bff.camm)

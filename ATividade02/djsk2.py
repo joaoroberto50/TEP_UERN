@@ -11,7 +11,6 @@ def menor(d, v, b):
     return d[v][0]
         
 
-
 def run(d):
     return menor(d, [*d][0], '')
 
