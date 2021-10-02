@@ -13,8 +13,8 @@ graf.add_node('f', [['d',1], ['e',9]])
 graf.print_grafo()
 
 
-djs = Dijkstra(graf, 'a', 'f')
+djs = Dijkstra(graf, 'a', 'b')
 djs.caminho()
 print(djs.ares)
-custo = djs.ares['f']['peso']
+custo = djs.ares['b']['peso']
 print(f'CAMINHO: {djs.camm} com CUSTO: {custo}')
