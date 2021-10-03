@@ -35,8 +35,11 @@ class BellmanFord(object):
 
 
     def caminho(self, fim):
-        self.camm.append(fim)
-        ant = self.arestas[fim]['u']
-        while(ant != ''):
-            self.camm.insert(0, ant)
-            ant = self.arestas[ant]['u']
+        if self.ciclo_negativo() == True:
+            self.camm.append(fim)
+            ant = self.arestas[fim]['u']
+            while(ant != ''):
+                self.camm.insert(0, ant)
+                ant = self.arestas[ant]['u']
+        else:
+            self.camm = []
