@@ -27,7 +27,7 @@ class Grafo:
         for i in range(0, len(m)):
             pesos = []
             for j in range(0, len(m[i])):
-                if(m[i][j] != '-' and j != 0):
+                if((m[i][j] != '-' and m[i][j] != '0') and j != 0):
                     pesos.append([h[j], int(m[i][j])])
             self.add_node(m[i][0], pesos)
 
