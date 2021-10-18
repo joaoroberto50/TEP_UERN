@@ -21,7 +21,7 @@ SAMU = 'V82'
 def sorteia_acidente(vertices):
     while True:
         x = choice(vertices)
-        if x not in HOSPITAIS and x != SAMU:
+        if x not in HOSPITAIS:
             return x
 
 
