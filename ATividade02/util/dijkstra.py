@@ -1,17 +1,12 @@
 
 class Dijkstra:
-    def __init__(self, grafo, ini, fim) -> None:
+    def __init__(self, grafo) -> None:
         self._MAX = 1000000
         self.peso = self._MAX
-        self.ini = ini
-        self.fim = fim
-        self.camm = [self.fim]
-        self.open = [self.ini]
         self.grafo = grafo.nos
         self.ares = {}
         for i in self.grafo:
             self.ares.update({i:{'u':'', 'peso':self._MAX}})
-        self.ares[self.ini]['peso'] = 0
 
 
     def _executa(self, ares, v):
@@ -32,7 +27,16 @@ class Dijkstra:
             aux.pop(0)
 
 
-    def caminho(self):
+    def _ajusta(self, ini, fim):
+        self.ini = ini
+        self.fim = fim
+        self.camm = [self.fim]
+        self.open = [self.ini]
+        self.ares[self.ini]['peso'] = 0
+
+
+    def caminho(self, ini, fim):
+        self._ajusta(ini, fim)
         while(self.open):
             self._relaxa()
         self._verifica_caminho()
