@@ -1,7 +1,9 @@
 from util.grafo import Grafo
 from util.dijkstra import Dijkstra
+from util.bellman_ford import BellmanFord
 from random import choice
 import threading
+import copy
 
 
 '''
@@ -17,7 +19,6 @@ SAMU = 'V82'
 
 
 def sorteia_acidente(vertices):
-    print(vertices)
     while True:
         x = choice(vertices)
         if x not in HOSPITAIS and x != SAMU:
@@ -32,5 +33,20 @@ djsk = Dijkstra(graf)
 local = sorteia_acidente([*graf.nos])
 print(local)
 djsk.caminho(SAMU, local)
+print(djsk.caminho(SAMU, local))
 custo = djsk.ares[local]['peso']
 print(f'CAMINHO do SAMU ate o local {local}: {djsk.camm} com CUSTO: {custo}')
+blm = BellmanFord(graf)
+caminhos = []
+pesos = []
+# print(graf.nos)
+blm.run(local)
+for i in HOSPITAIS:
+    camm, peso = blm.caminho(i)
+    caminhos.append(camm), pesos.append(peso)
+
+print(pesos)
+print(min(pesos))
+print(caminhos[pesos.index(min(pesos))])
+
+

@@ -40,6 +40,7 @@ class Dijkstra:
         while(self.open):
             self._relaxa()
         self._verifica_caminho()
+        return self.camm, self.ares[self.fim]['peso']
 
 
     def _verifica_caminho(self):

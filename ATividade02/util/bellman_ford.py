@@ -1,15 +1,14 @@
 
 class BellmanFord(object):
 
-    def __init__(self, grafo, ini) -> None:
+    def __init__(self, grafo) -> None:
         self._MAX = 1000000
-        self.ini = ini
         self.grafo = grafo.nos
         self.camm = []
         self.arestas = {}
         for i in self.grafo:
             self.arestas.update({i:{'u':'', 'peso':self._MAX}})
-        self.arestas[self.ini] = {'u':'', 'peso':0}
+        
         
 
     def _relaxa(self, ciclo=False) -> None:
@@ -25,7 +24,9 @@ class BellmanFord(object):
             return True
 
 
-    def run(self) -> None:
+    def run(self, ini) -> None:
+        self.ini = ini
+        self.arestas[self.ini] = {'u':'', 'peso':0}
         for i in range(0, (len(self.grafo) - 1)):
             self._relaxa()
 
@@ -34,7 +35,7 @@ class BellmanFord(object):
         return self._relaxa(True)
 
 
-    def caminho(self, fim):
+    def caminho(self, fim):        
         if self.ciclo_negativo() == True:
             self.camm.append(fim)
             ant = self.arestas[fim]['u']
@@ -43,3 +44,4 @@ class BellmanFord(object):
                 ant = self.arestas[ant]['u']
         else:
             self.camm = []
+        return self.camm, self.arestas[fim]['peso']
