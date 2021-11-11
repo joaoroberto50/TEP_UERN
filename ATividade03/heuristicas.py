@@ -1,3 +1,4 @@
+from random import choice
 
 
 _MAX = 999999
@@ -30,11 +31,11 @@ class Gulosa(object):
                 m_ares = i[0]
         self.camm_tmp.append(m_ares)
         self.custo_tmp += menor
-        print(menor)
+        print(f'{menor} - {m_ares}')
         return m_ares
 
 
-    def encontra_rota(self, origem=''):
+    def encontra_rota(self, origem='') -> None:
         self.camm_tmp = []
         if origem:
             self.origem = origem
@@ -50,7 +51,7 @@ class Gulosa(object):
         self._menor_aresta(self.att)
 
     
-    def verifica_rotas(self):
+    def verifica_rotas(self) -> None:
         # self.origins.pop(0)
         for i in self.origins:
             self.n_visitado_tmp = self.n_visitado.copy()
@@ -64,6 +65,23 @@ class Gulosa(object):
 
 
 
-    def teste(self):
+
+class BuscaLocal(object):
+
+    def __init__(self, grafo) -> None:
+        self.grafo = grafo.nos
+        self.mat = []
+        inte_i = 0
         for i in self.grafo:
-            print(i)
+            self.mat.append([])
+            inte_j = 0
+            for j in self.grafo[i]:
+                if inte_i == inte_j:
+                    self.mat[inte_i].append(0)
+                self.mat[inte_i].append(j[1])
+                inte_j += 1
+            inte_i += 1
+        self.mat[(inte_i - 1)].append(0)
+
+
+    # def 
