@@ -33,7 +33,7 @@ class Gulosa(object):
                 m_ares = i[0]
         self.camm_tmp.append(m_ares)
         self.custo_tmp += menor
-        print(f'{menor} - {m_ares}')
+        #print(f'{menor} - {m_ares}')
         return m_ares
 
 
@@ -143,7 +143,7 @@ class GulosaAleatoria(object):
         self.grafo = grafo.nos
         self.grafo_tmp = {}
         self.camm = []
-        self.custo = _MAX
+        self.custo = 0
         self.n_visitado = []
         self.l_pop = []
         for i in self.grafo:
@@ -163,35 +163,38 @@ class GulosaAleatoria(object):
     def _calc_coef(self) -> int:
         if self.coef == 0:
             return 1
-        return int(len(len(self.n_visitado))*self.coef)
+        return int(len(self.n_visitado)*self.coef) + 1
 
 
     def _sorteia_index(self, x):
-        while True:
-            si = (sample(range(0, x), 1))[0]
-            si = self.grafo[self.att][si]
-            if si[0] in self.n_visitado:
-                return si
+            ni = (sample(range(0, x), 1))[0]
+            if ni == 0 and len(self.n_visitado) == 2:
+                return 0
+            return ni
 
     
     def _limpa_colunas(self, z):
+        tmp = z.copy()
         for i in z:
             if i[0] not in self.n_visitado:
-                z.remove(i)
+                tmp.remove(i)
+        return tmp
 
 
     def _escolhe_aresta(self, x) -> None:
         x = self._calc_coef()
+        #print(x)
         z = self.grafo[self.att].copy()
-        self._limpa_colunas(z)
+        z = self._limpa_colunas(z)
         a = self._sorteia_index(x)
-        # a = self.grafo[self.att][a]
-        self.camm.append(a[0])
-        self.custo += a[1]
-        self.att = a[0]
-        print(a[0])
-        self.n_visitado.remove(a[0])
-        self.l_pop.append(int(self.att[1:]))
+        if z:
+            a = z[a]
+            self.n_visitado.remove(self.att)
+            self.camm.append(a[0])
+            self.custo += a[1]
+            self.att = a[0]
+        else:
+            self.n_visitado.remove(self.att)
 
 
 
@@ -199,10 +202,16 @@ class GulosaAleatoria(object):
         self.origem = origem
         self.coef = coef
         self.att = self.origem
-        self.n_visitado.remove(self.att)
+        self.custo = 0
+        self.camm = []
+        self.n_visitado = []
+        for i in self.grafo:
+            self.n_visitado.append(i)
         self.grafo_tmp = self.grafo.copy()
         x = self._calc_coef()
         while(self.n_visitado):
             self._escolhe_aresta(x)
-        self.n_visitado.append(self.origem)
-        self._escolhe_aresta(x)
+        for i in self.grafo[(self.camm[-1])]:
+            if i[0] == self.origem:
+                self.camm.append(self.origem)
+                self.custo += i[1]
